@@ -59,6 +59,7 @@
     "typescript": "3.9.6"
   },
   "scripts": {
+    "prepare": "npm run build",
     "build": "npm run build-cjs && npm run build-mjs",
     "build-cjs": "rimraf lib && BABEL_ENV=cjs babel src --ignore __tests__,__mocks__ -d lib && COPY_TO_FOLDER=lib npm run build-flow",
     "build-mjs": "rimraf mjs && BABEL_ENV=mjs babel src --ignore __tests__,__mocks__ -d mjs && yarn build-mjs-rename && COPY_TO_FOLDER=mjs npm run build-flow",
