@@ -151,7 +151,7 @@ export function preparePaginationResolver<TSource, TContext>(
         projection.count ||
         (projection.pageInfo && (projection.pageInfo.itemCount || projection.pageInfo.pageCount))
       ) {
-        countPromise = countResolve(countParams);
+        countPromise = countResolve(countParams.source, countParams.args, countParams.context, countParams.info, countParams.projection);
       } else {
         countPromise = Promise.resolve(0);
       }
@@ -186,7 +186,7 @@ export function preparePaginationResolver<TSource, TContext>(
       if ((projection.count || projection.pageInfo) && Object.keys(projection).length === 1) {
         findManyPromise = Promise.resolve([]);
       } else {
-        findManyPromise = findManyResolve(findManyParams);
+        findManyPromise = findManyResolve(findManyParams.source, findManyParams.args, findManyParams.context, findManyParams.info, findManyParams.projection);
       }
 
       return Promise.all([findManyPromise, countPromise]).then(([items, count]) => {
